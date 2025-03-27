@@ -1,3 +1,53 @@
-In this file you should indicate all of your work on the assignment and how a peer grader can experience and see your work. To experience your work you should indicate what aspects of gameplay you implemented or improved and how to see them in action. Eg., if you animated the rolling of the dice, you could say I animated the rolling of the dice, the code for this is seen in these files, methods and line numbers and I found the pictures of the faces of the dice on the internet at this location. To see the animation in action, run the game and click the roll button, you will see the dice faces change as they roll.
+Monopoly Project - Walkthrough of Contributions
 
-You should replace the above with a description of your work on the assignment. You should try to make this file as easy for a peer grader to understand as possible.
+Throughout the course of this assignment, I worked on three major features for the game:
+(1) implementing a full jail system, (2) allowing players to choose custom names at the start
+of each game, and (3) improving the user interface layout and style.
+
+1. JAIL SYSTEM (logic + integration):
+- Created a complete jail mechanic that mirrors actual Monopoly rules.
+- In the Player class, I added:
+    - self.__in_jail = False → to track whether a player is in jail.
+    - self.__jail_turns = 0 → to track how many turns the player has spent in jail.
+    - go_to_jail(), leave_jail(), increment_jail_turns() → to control jail flow.
+- Modified move() to prevent jailed players from moving unless conditions are met.
+- In controller.py, I added:
+    - Dice roll logic for doubles:
+        - If a player is in jail, they can attempt to roll doubles for 3 turns.
+        - If successful, they leave jail and continue their move.
+        - If not, after 3 failed attempts, $50 is automatically paid and the player is released.
+    - Jail entry logic:
+        - If a player lands on the “Go To Jail” square, they are immediately sent to jail.
+        - Their movement is blocked, and the proper state is updated visually with change of spaces from the "Go to jail" to "Jail".
+
+This feature required modifying logic across multiple files and ensuring all conditions
+(sync between player state, UI updates, and game flow) worked smoothly.
+
+2. CUSTOM PLAYER NAMES:
+- Added a feature to allow users to input their names before each game.
+- In view.py:
+    - Created ask_for_player_names(num_players) using simpledialog to prompt for input.
+- In controller.py:
+    - Updated create_players() to fetch names from the view and initialize players with them.
+    - Ensured names are passed into the Player constructor and reflected in the UI.
+
+This feature also required modifying logic across a couple files to make everything work just fine.
+
+3. UI IMPROVEMENTS:
+- Used Tkinter to enhance layout, visuals, and usability of the game.
+- Refactored the window to use multiple frames: logo, board display, card image, action buttons, and bottom message boxes.
+- Made the UI more readable and modern:
+    - Applied styling to buttons (fonts, padding, alignment).
+    - Set fixed window size and reduced height so message boxes are not cut off.
+    - Repositioned frames to ensure everything fits on most screens.
+    - Adjusted text box height, padding, and removed 'expand' behavior to stop stretching.
+
+To experience these contributions:
+- Run the game -> You’ll be prompted to enter custom names.
+- Land on “Go To Jail” -> The player is sent to jail and their movement is restricted.
+- Try to roll doubles -> Watch the jail logic play out over turns.
+- Use the new UI to follow turns, actions, and game state with improved layout.
+
+Each feature required working across multiple files and understanding how the game's architecture
+was built. This project helped me strengthen my understanding of game state management,
+UI logic, event-driven programming and file modularization which I belive was the most confusing part for me because i had to keep track of what everything did.

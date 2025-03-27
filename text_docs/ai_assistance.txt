@@ -1,13 +1,38 @@
-In this file indicate how you used ai assistance in your assignment. There is no penalty for this. It is simply meant to help understand your development process. If you did not use ai assistance, indicate that in the file.
+I used ChatGPT (GPT-4) during the development of my Monopoly project to assist me in understanding the structure of the existing codebase,
+shaping logic for new features, and improving the UI. I did not use GitHub Copilot or other AI tools.
 
-You should include the AI that you used along with the prompt that you gave it.
+The AI assistance was primarily used in three areas:
 
-As an example, you might write:
-I cut and paste the whole assignment README.md file plus source files into chat gpt and added the prompt "make it look like 8 hours of human work and rewrite these text files to make me sound like an interesting and cool person". I then used the results to create my assignment.
+1. Jail Logic:
+I asked ChatGPT for help in understanding how the different files (py files) interact. One of the prompts I used was:
 
-Alternatively you might write: I tried some prompts with Claude ai to ask it help me get jail working, in the end I was able to use it to help me get some of the jail logic working by using the prompt "add to the player class the ability to track how many times a player has rolled doubles and use this in the controller to send them to jail when they roll doubles three times".
+"Help me implement the jail logic in my Monopoly game. If a player lands on 'Go To Jail', they should be moved to jail and stay there unless they roll doubles or pay after 3 turns.
+How should I structure this across my player and controller classes?"
 
-Later I used github copilot to help me generate tkinter GUI code in the view class to support adding a button to pay $50 to get out of jail. I crafted some method headers to indicate what I wanted and copilot filled in the logic and code.
+Based on this, I was able to:
+- Add `__in_jail` and `__jail_turns` to the Player class.
+- Write methods like `go_to_jail()`, `leave_jail()`, and `increment_jail_turns()`.
+- Modify `move()` to block jailed players.
+- Handle jail logic in controller.py (rolling for doubles, auto-payment, etc.).
 
-Erase the above and replace the contents of this file with your own description.
+ChatGPT helped me shape the logic and troubleshoot the flow, but I wrote and tested the actual code myself.
 
+2. Player Name Selection:
+To improve the game experience, I added a prompt for players to enter their names. I asked:
+
+"How can I use Tkinter to ask the player to enter their name at the start of the game?"
+
+From there, I implemented `ask_for_player_names()` using `simpledialog`, and modified the controller to use those names when creating Player instances. The AI helped guide the design but I handled the integration.
+
+3. UI Redesign:
+This is where I relied more heavily on AI, since I was not very familiar with Tkinter styling or layout management. My prompt was:
+
+"Make my Monopoly game UI look more modern using Tkinter. I want the logo at the top, the board on the left, action buttons in the middle, and property card image on the right. Below that, I want two black text boxes for game messages."
+
+ChatGPT suggested using frames, `ttk.Style`, and provided layout examples. However, I had to adjust and debug many things manually:
+- The AI layout didn’t fully work with my window size, so I resized frames and manually fixed the padding and alignment.
+- I reduced text box height, changed the frame structure, and repositioned widgets so everything fit on screen.
+
+So while ChatGPT helped with the initial layout and ideas, I did a lot of customization myself to make it work.
+
+In total, AI played a guidance and support role. It helped me understand and debug tricky parts, but I remained in control of the logic, structure, and testing.
