@@ -3,6 +3,8 @@ import os
 from tkinter import ttk
 import controller
 import observer
+from tkinter import simpledialog
+
 
 
 def get_board_square_images():
@@ -224,6 +226,17 @@ class View (observer.Observer):
         for image in square_images:
             img = tk.PhotoImage(file=image)
             self.images.append(img)
+
+    # prompt players names
+    def ask_for_player_names(self, num_players):
+        names = []
+        for i in range(num_players):
+            name = simpledialog.askstring("Player Name", f"Enter name for Player {i + 1}:")
+            if not name:
+                name = f"Player {i + 1}"
+            names.append(name)
+        return names
+
 
 '''launch the GUI'''
 if __name__ == '__main__':

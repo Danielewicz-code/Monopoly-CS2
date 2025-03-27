@@ -18,7 +18,8 @@ class Controller(observer.Observer):
         self._view = view.View(root)
 
         csv_path = os.path.join("resources", "data", "board.csv")
-        players = self._create_players(3)
+        names = self._view.ask_for_player_names(3)
+        players = self._create_players_from_names(names)
         self._gameboard = gameboard.GameBoard(csv_path, players)
 
         self._add_listeners()
@@ -32,6 +33,13 @@ class Controller(observer.Observer):
 
         self._set_expected_val()
 
+    #create the new players with custom names
+    def _create_players_from_names(self, names):
+        players = []
+        for name in names:
+            player = plr.Player(name, 1500)
+            players.append(player)
+        return players
 
     def _add_listeners(self):
         """Add listeners to the view"""
